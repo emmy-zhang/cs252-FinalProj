@@ -31,14 +31,20 @@ var game = {
       me.state.set(me.state.PLAY, new game.PlayScreen());
 
       // register our player entity in the object pool
-      me.pool.register("mainPlayer", game.PlayerEntity);
+      me.pool.register("player1", game.PlayerEntity);
+      me.pool.register("player2", game.Player2Entity);
       // me.pool.register("CoinEntity", game.CoinEntity);
-      me.pool.register("EnemyEntity", game.EnemyEntity);
+      // me.pool.register("EnemyEntity", game.EnemyEntity);
 
-      // enable the keyboard
-      me.input.bindKey(me.input.KEY.LEFT,  "left");
-      me.input.bindKey(me.input.KEY.RIGHT, "right");
-      me.input.bindKey(me.input.KEY.UP,     "jump", true);
+      // enable the keyboard for player 1
+      me.input.bindKey(me.input.KEY.A,  "left1");
+      me.input.bindKey(me.input.KEY.D, "right1");
+      me.input.bindKey(me.input.KEY.W,     "jump1", true);
+
+      // enable the keyboard for player 2
+      me.input.bindKey(me.input.KEY.LEFT,  "left2");
+      me.input.bindKey(me.input.KEY.RIGHT, "right2");
+      me.input.bindKey(me.input.KEY.UP,     "jump2", true);
 
       // start the game
       me.state.change(me.state.PLAY);
