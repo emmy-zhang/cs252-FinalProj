@@ -6,13 +6,19 @@ game.PlayerEntity = me.Entity.extend({
     /**
      * constructor
      */
-    init:function (x, y, settings)
+    init: function (x, y, settings)
     {
         // call the constructor
-        this._super(me.Entity, 'init', [x, y , settings]);
+        this._super(me.Entity, 'init', [x, y, settings]);
+
+        // this.initialPos = { x: x, y: y };
+        // console.log(this.initialPos);
+
+        this.initialSettings = { x: x, y: y, settings: settings };
+        console.log(this.initialSettings);
 
         // set the default horizontal & vertical speed (accel vector)
-        this.body.setVelocity(3, 15);
+        this.body.setVelocity(4, 15);
 
         // set the display to follow our position on both axis
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -21,9 +27,9 @@ game.PlayerEntity = me.Entity.extend({
         this.alwaysUpdate = true;
 
         // define a basic walking animation (using all frames)
-        this.renderable.addAnimation("walk",  [0, 1, 2, 3, 4, 5, 6, 7]);
+        this.renderable.addAnimation("walk", [0, 1, 2, 3, 4, 5, 6, 7]);
         // define a standing animation (using the first frame)
-        this.renderable.addAnimation("stand",  [0]);
+        this.renderable.addAnimation("stand", [0]);
         // set the standing animation as default
         this.renderable.setCurrentAnimation("stand");
     },
@@ -32,7 +38,6 @@ game.PlayerEntity = me.Entity.extend({
      * update the entity
      */
     update : function (dt) {
-
         if (me.input.isKeyPressed('left1'))
         {
             // flip the sprite on horizontal axis
@@ -111,18 +116,18 @@ game.PlayerEntity = me.Entity.extend({
                 break;
 
             case me.collision.types.ENEMY_OBJECT:
-                if ((response.overlapV.y>0) && !this.body.jumping) {
+                if ((response.overlapV.y > 0.0) && !this.body.jumping) {
                     // bounce (force jump)
                     this.body.falling = false;
-                    this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
                     // set the jumping flag
                     this.body.jumping = true;
+                    other.body.jumping = true;
                     // play some audio
                     me.audio.play("stomp");
                 }
                 else {
                     // let's flicker in case we touched an enemy
-                    this.renderable.flicker(750);
+                    // this.renderable.flicker(750);
                 }
                 return false;
                 break;
@@ -148,10 +153,16 @@ game.Player2Entity = me.Entity.extend({
     init:function (x, y, settings)
     {
         // call the constructor
-        this._super(me.Entity, 'init', [x, y , settings]);
+        this._super(me.Entity, 'init', [x, y, settings]);
+
+        // this.initialPos = { x: x, y: y };
+        // console.log(this.initialPos);
+
+        this.initialSettings = { x: x, y: y, settings: settings };
+        console.log(this.initialSettings);
 
         // set the default horizontal & vertical speed (accel vector)
-        this.body.setVelocity(3, 15);
+        this.body.setVelocity(4, 15);
 
         // set the display to follow our position on both axis
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -251,18 +262,28 @@ game.Player2Entity = me.Entity.extend({
                 break;
 
             case me.collision.types.ENEMY_OBJECT:
-                if ((response.overlapV.y>0) && !this.body.jumping) {
+                if ((response.overlapV.y > 0.0) && !this.body.jumping) {
                     // bounce (force jump)
                     this.body.falling = false;
                     this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
                     // set the jumping flag
                     this.body.jumping = true;
+                    // other.body.jumping = true;
+                    // console.log(other.body.pos);
+                    // other.body.pos.x = other.initialPos.x;
+                    // other.body.pos.y = other.initialPos.y;
+                    // console.log(other.body.pos);
+                    // other.renderable.setCurrentAnimation("stand");
+                    other = other.init(other.initialSettings.x,
+                                       other.initialSettings.y,
+                                       other.initialSettings.settings
+                    )
                     // play some audio
                     me.audio.play("stomp");
                 }
                 else {
                     // let's flicker in case we touched an enemy
-                    this.renderable.flicker(750);
+                    // this.renderable.flicker(750);
                 }
                 return false;
                 break;

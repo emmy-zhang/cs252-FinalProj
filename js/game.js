@@ -1,18 +1,16 @@
-
 /* Game namespace */
 var game = {
-
     // an object where to store game information
-    data : {
+    data: {
         // score
-        score : 0
+        score: 0
     },
 
-
     // Run on page load.
-    "onload" : function () {
+    "onload": function () {
         // Initialize the video.
-        if (!me.video.init(640, 480, {wrapper : "screen", scale : "auto", scaleMethod : "flex-width"})) {
+        // if (!me.video.init(640, 480, {wrapper : "screen", scale : "auto", scaleMethod : "flex-width"})) {
+        if (!me.video.init(640, 520, {wrapper : "screen", scale : "auto", scaleMethod : "flex-width"})) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
@@ -26,7 +24,7 @@ var game = {
     },
 
     // Run on game resources loaded.
-    "loaded" : function () {
+    "loaded": function () {
       // set the "Play/Ingame" Screen Object
       me.state.set(me.state.PLAY, new game.PlayScreen());
 
@@ -37,14 +35,14 @@ var game = {
       // me.pool.register("EnemyEntity", game.EnemyEntity);
 
       // enable the keyboard for player 1
-      me.input.bindKey(me.input.KEY.A,  "left1");
+      me.input.bindKey(me.input.KEY.A, "left1");
       me.input.bindKey(me.input.KEY.D, "right1");
-      me.input.bindKey(me.input.KEY.W,     "jump1", true);
+      me.input.bindKey(me.input.KEY.W, "jump1", true);
 
       // enable the keyboard for player 2
       me.input.bindKey(me.input.KEY.LEFT,  "left2");
       me.input.bindKey(me.input.KEY.RIGHT, "right2");
-      me.input.bindKey(me.input.KEY.UP,     "jump2", true);
+      me.input.bindKey(me.input.KEY.UP, "jump2", true);
 
       // start the game
       me.state.change(me.state.PLAY);
