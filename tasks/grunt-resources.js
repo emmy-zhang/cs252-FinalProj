@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = (grunt) => {
   function task() {
     var path = require("path"),
       options = this.options({
@@ -10,8 +10,8 @@ module.exports = function (grunt) {
     grunt.log.debug("options: " + JSON.stringify(options));
     grunt.log.debug("files: " + JSON.stringify(this.files));
 
-    this.files.forEach(function (file) {
-      file.src.forEach(function (src) {
+    this.files.forEach((file) => {
+      file.src.forEach((src) => {
         var name = path.basename(src, path.extname(src));
         if ((file.type !== "audio") || (!audio.hasOwnProperty(name))) {
           if (file.type === "audio") {
