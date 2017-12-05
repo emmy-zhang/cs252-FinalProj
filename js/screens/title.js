@@ -24,16 +24,29 @@ game.TitleScreen = me.ScreenObject.extend({
         // font for the scrolling text
         this.font = new me.BitmapFont(me.loader.getBinary('PressStart2P'), me.loader.getImage('PressStart2P'));
 
-        superagent
-          .get('/leaderboard')
-          .end(function (err, res) {
-            console.log('leaderboard', res)
-            // a tween to animate the arrow
-            this.scrollertween = new me.Tween(this).to({ scrollerpos: -2200 }, 10000).onComplete(this.scrollover.bind(this)).start();
+        let scroller = null
+        let scrollerpos = null
+        let scrollertween = null
 
-            this.scroller = "A SIMPLE COMPETITIVE PLATFORMER       ";
-            this.scrollerpos = 600;
-          })
+        $.ajax({
+          type: 'GET',
+          url: '/leaderboard',
+          dataType: 'json',
+          async: false
+        }).done(function (data) {
+          let scores = data.scores.map((x) => { return x.score })
+          if (scores.length === 0) {
+            scroller = "A SIMPLE COMPETITIVE PLATFORMER       ";
+          } else {
+            scroller = "LEADERBOARD HIGHEST SCORE: " + scores[0] + "       ";
+          }
+          scrollerpos = 600;
+
+        });
+
+        this.scroller = scroller
+        this.scrollerpos = scrollerpos
+        this.scrollertween = new me.Tween(this).to({ scrollerpos: -2200 }, 10000).onComplete(this.scrollover.bind(this)).start();
       },
 
       // some callback for the tween objects
@@ -51,6 +64,7 @@ game.TitleScreen = me.ScreenObject.extend({
         this.font.draw(renderer, "PRESS ENTER TO PLAY", 20, 240);
         this.font.draw(renderer, this.scroller, this.scrollerpos, 440);
       },
+
       onDestroyEvent: function () {
         //just in case
         this.scrollertween.stop();
