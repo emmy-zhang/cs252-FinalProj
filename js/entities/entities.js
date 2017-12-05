@@ -84,8 +84,8 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   /**
-     * colision handler
-     */
+    * collision handler
+    */
   onCollision: function (response, other) {
     switch (response.b.body.collisionType) {
       case me.collision.types.WORLD_SHAPE:
@@ -144,7 +144,7 @@ game.PlayerEntity = me.Entity.extend({
  */
 game.Player2Entity = me.Entity.extend({
   /**
-   * constructor
+   * Constructor
    */
   init: function (x, y, settings) {
     // call the constructor
@@ -174,7 +174,7 @@ game.Player2Entity = me.Entity.extend({
   },
 
   /**
-   * update the entity
+   * Update the entity
    */
   update: function (dt) {
     // flip the sprite on horizontal axis
@@ -227,8 +227,8 @@ game.Player2Entity = me.Entity.extend({
   },
 
   /**
-     * colision handler
-     */
+    * Collision handler
+    */
   onCollision: function (response, other) {
     switch (response.b.body.collisionType) {
       case me.collision.types.WORLD_SHAPE:

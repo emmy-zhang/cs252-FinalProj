@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.get('/leaderboard', (req, res) => {
   Leaderboard
     .find()
-    .sort({ score: 1 })
+    .sort({ score: -1 })
     .limit(5)
     .exec((err, scores) => {
       if (err) {

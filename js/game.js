@@ -31,6 +31,7 @@ var game = {
     // set the "Play/Ingame" Screen Object
     me.state.set(me.state.MENU, new game.TitleScreen());
     me.state.set(me.state.PLAY, new game.PlayScreen());
+    me.state.set(me.state.GAME_END, new game.EndScreen());
 
     // register our player entity in the object pool
     me.pool.register("player1", game.PlayerEntity);
