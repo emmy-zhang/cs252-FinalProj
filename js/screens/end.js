@@ -56,18 +56,14 @@ game.EndScreen = me.ScreenObject.extend({
           console.log(scores)
           if (scores.length === 0 || scores[0] < winScore) {
             scroller += "NEW HIGH SCORE: " + winScore + "!"
-            $.ajax({
-              type: 'POST',
-              url: '/leaderboard',
-              data: { score: winScore },
-              async: false
-            }).done(function (data) { });
           } else {
             let highScore = scores[0]
             scroller += "NO HIGH SCORE."
           }
           scrollerpos = 600;
         });
+
+		this.winScore = winScore
 
         this.scroller = scroller
         this.scrollerpos = 600
@@ -117,6 +113,13 @@ game.EndScreen = me.ScreenObject.extend({
    * action to perform when leaving this screen (state change)
    */
   onDestroyEvent: function () {
+	$.ajax({
+      type: 'POST',
+      url: '/leaderboard',
+      data: { score: this.scrollComponent.winScore },
+      async: false
+    }).done(function (data) { });
+
     me.game.world.removeChild(this.backgroundImage);
     me.game.world.removeChild(this.scrollComponent);
 
