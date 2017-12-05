@@ -24,11 +24,16 @@ game.TitleScreen = me.ScreenObject.extend({
         // font for the scrolling text
         this.font = new me.BitmapFont(me.loader.getBinary('PressStart2P'), me.loader.getImage('PressStart2P'));
 
-        // a tween to animate the arrow
-        this.scrollertween = new me.Tween(this).to({ scrollerpos: -2200 }, 10000).onComplete(this.scrollover.bind(this)).start();
+        superagent
+          .get('/leaderboard')
+          .end((err, res) => {
+            console.log('leaderboard', res)
+            // a tween to animate the arrow
+            this.scrollertween = new me.Tween(this).to({ scrollerpos: -2200 }, 10000).onComplete(this.scrollover.bind(this)).start();
 
-        this.scroller = "A SIMPLE COMPETITIVE PLATFORMER       ";
-        this.scrollerpos = 600;
+            this.scroller = "A SIMPLE COMPETITIVE PLATFORMER       ";
+            this.scrollerpos = 600;
+          })
       },
 
       // some callback for the tween objects

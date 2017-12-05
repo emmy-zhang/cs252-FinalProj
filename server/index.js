@@ -1,6 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const http = require('http');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -23,6 +24,7 @@ const server = http.Server(app)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors())
 
 /**
  * Connect to MongoDB.
@@ -31,6 +33,10 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on('error', () => {
     console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
     process.exit(1);
+});
+
+app.get('/', (req, res) => {
+  return res.status(200).text('Hello! Hidnogg server here.')
 });
 
 app.get('/leaderboard', (req, res) => {
