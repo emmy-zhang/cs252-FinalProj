@@ -11,14 +11,9 @@
     "compression": "^1.6.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
-    "grunt-shell": "^2.1.0",
-    "load-grunt-tasks": "^3.5.2",
-    "mongoose": "^4.10.2",
-    "request": "^2.73.0"
-  },
-  "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "1.0.1",
     "grunt-asar": "bwin/grunt-asar#update-asar",
+    "grunt-cli": "1.2.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.2",
@@ -27,6 +22,10 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-download-electron": "^2.1.4",
     "grunt-processhtml": "^0.4.1",
-    "grunt-replace": "^1.0.1"
+    "grunt-replace": "^1.0.1",
+    "grunt-shell": "^2.1.0",
+    "load-grunt-tasks": "^3.5.2",
+    "mongoose": "^4.10.2",
+    "request": "^2.73.0"
   }
 }
