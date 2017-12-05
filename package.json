@@ -3,8 +3,9 @@
   "version": "2.1.3",
   "main": "main.js",
   "scripts": {
-    "postinstall": "grunt serve",
-    "start": "node server/index.js"
+    "client": "grunt serve",
+    "server": "node server/index.js",
+    "start": "npm run client | npm run server"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
