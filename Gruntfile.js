@@ -156,7 +156,7 @@ module.exports = function (grunt) {
 
     watch: {
       resources: {
-        files: ['data/**/*'],
+        files: ['data/**/*', 'server/*'],
         tasks: ['resources'],
         options: {
           spawn: false,
