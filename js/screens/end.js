@@ -1,11 +1,11 @@
-game.TitleScreen = me.ScreenObject.extend({
+game.EndScreen = me.ScreenObject.extend({
   /**
    * action to perform on state change
    */
   onResetEvent: function () {
     // title screen
     var backgroundImage = new me.Sprite(0, 0, {
-      image: me.loader.getImage('title_screen'),
+      image: me.loader.getImage('end_screen'),
     });
 
     // position and scale to fit with the viewport size
@@ -23,19 +23,6 @@ game.TitleScreen = me.ScreenObject.extend({
 
         // font for the scrolling text
         this.font = new me.BitmapFont(me.loader.getBinary('PressStart2P'), me.loader.getImage('PressStart2P'));
-
-        // a tween to animate the arrow
-        this.scrollertween = new me.Tween(this).to({ scrollerpos: -2200 }, 10000).onComplete(this.scrollover.bind(this)).start();
-
-        this.scroller = "A SIMPLE COMPETITIVE PLATFORMER       ";
-        this.scrollerpos = 600;
-      },
-
-      // some callback for the tween objects
-      scrollover: function () {
-        // reset to default value
-        this.scrollerpos = 640;
-        this.scrollertween.to({ scrollerpos: -2200 }, 10000).onComplete(this.scrollover.bind(this)).start();
       },
 
       update: function (dt) {
@@ -43,9 +30,10 @@ game.TitleScreen = me.ScreenObject.extend({
       },
 
       draw: function (renderer) {
-        this.font.draw(renderer, "PRESS ENTER TO PLAY", 20, 240);
+        this.font.draw(renderer, "PRESS ENTER TO PLAY AGAIN", 20, 240);
         this.font.draw(renderer, this.scroller, this.scrollerpos, 440);
       },
+
       onDestroyEvent: function () {
         //just in case
         this.scrollertween.stop();
@@ -60,7 +48,7 @@ game.TitleScreen = me.ScreenObject.extend({
         // play something on tap / enter
         // this will unlock audio on mobile devices
         me.audio.play("cling");
-        me.state.change(me.state.PLAY);
+        me.state.change(me.state.MENU);
       }
     });
   },
