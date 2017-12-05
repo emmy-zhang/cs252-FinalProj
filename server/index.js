@@ -1,10 +1,17 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const http = require('http');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 /**
- * Load environment variables from .env file, where API keys and passwords are configured.
+ * Import models.
+ */
+const Leaderboard = require('./leaderboard');
+
+/**
+ * Load environment variables from .env file.
  */
 dotenv.load({ path: '.env' });
 
@@ -13,6 +20,9 @@ dotenv.load({ path: '.env' });
  */
 const app = express()
 const server = http.Server(app)
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /**
  * Connect to MongoDB.
@@ -23,8 +33,33 @@ mongoose.connection.on('error', () => {
     process.exit(1);
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/bin/client/index.html');
+app.get('/leaderboard', (req, res) => {
+  Leaderboard
+    .find()
+    .sort({ score: 1 })
+    .limit(1)
+    .exec((err, scores) => {
+      if (err) {
+        return res.status(500).json({ error: err })
+      }
+      return res.status(200).json({
+        scores
+      })
+    })
+});
+
+app.post('/leaderboard', (req, res) => {
+  const score = req.body.score;
+  if (score === undefined) {
+    return res.status(400).json({ error: 'score undefined' })
+  }
+  const leaderboard = Leaderboard({ score })
+  leaderboard.save((err) => {
+    if (err) {
+      return res.status(500).json({ error: err })
+    }
+    return res.status(200).json('Success!')
+  })
 });
 
 /**
