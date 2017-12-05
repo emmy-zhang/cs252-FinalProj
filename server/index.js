@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -35,15 +36,15 @@ mongoose.connection.on('error', () => {
     process.exit(1);
 });
 
-app.get('/', (req, res) => {
-  return res.status(200).text('Hello! Hidnogg server here.')
-});
+// Use build files
+app.use(express.static(path.join(__dirname, '../build')));
 
+// Get leaderboard
 app.get('/leaderboard', (req, res) => {
   Leaderboard
     .find()
     .sort({ score: 1 })
-    .limit(1)
+    .limit(5)
     .exec((err, scores) => {
       if (err) {
         return res.status(500).json({ error: err })
@@ -54,6 +55,7 @@ app.get('/leaderboard', (req, res) => {
     })
 });
 
+// Add to leaderboard
 app.post('/leaderboard', (req, res) => {
   const score = req.body.score;
   if (score === undefined) {
