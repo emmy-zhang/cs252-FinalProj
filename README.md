@@ -6,7 +6,7 @@ Lab 6
 Emmy Zhang zhan2235@purdue.edu
 
 ## Description:
-A 2D two-player fighting game (inspired by Nidhogg), where the two players try to go in opposite directions. The player who reaches the final destination wins.
+A two-player fighting game, where the two players try to jump on each other to score the most number of points in 60 seconds.
 
 ## Technologies used
 HTML5, Melon.js, Node.js, Heroku
