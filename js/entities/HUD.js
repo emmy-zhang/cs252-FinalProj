@@ -20,10 +20,13 @@ game.HUD.Container = me.Container.extend({
     this.name = "HUD";
 
     // Add score counters and timer
-    this.addChild(new game.HUD.ScoreItem('first', -860, -10, 'left'));
-    this.addChild(new game.HUD.ScoreItem('second', -10, -10, 'right'));
+    this.scoreFirst = new game.HUD.ScoreItem('first', -860, -10, 'left');
+    this.scoreSecond = new game.HUD.ScoreItem('second', -10, -10, 'right');
+    this.timer = new game.HUD.Timer(-430, -10);
 
-    this.addChild(new game.HUD.Timer(-430, -10));
+    this.addChild(this.scoreFirst);
+    this.addChild(this.scoreSecond);
+    this.addChild(this.timer);
   }
 });
 
@@ -104,7 +107,7 @@ game.HUD.Timer = me.Renderable.extend({
     this.now = Date.now()
     this.elapsed = 0
     // this.total = 60
-    this.total = 5
+    this.total = 60
   },
 
   /**

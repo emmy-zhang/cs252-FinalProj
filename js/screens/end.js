@@ -53,6 +53,7 @@ game.EndScreen = me.ScreenObject.extend({
           async: false
         }).done(function (data) {
           let scores = data.scores.map((x) => { return x.score })
+          console.log(scores)
           if (scores.length === 0 || scores[0] < winScore) {
             scroller += "NEW HIGH SCORE: " + winScore + "!"
             $.ajax({

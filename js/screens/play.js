@@ -31,11 +31,12 @@ game.PlayScreen = me.ScreenObject.extend({
   onDestroyEvent: function () {
     // remove the HUD from the game world
     // me.game.world.removeChild(this.HUD);
-    console.log('before', me.game.world.children)
+    this.HUD.removeChild(this.HUD.scoreFirst);
+    this.HUD.removeChild(this.HUD.scoreSecond);
+    this.HUD.removeChild(this.HUD.timer);
     me.game.world.removeChild(this.HUD);
     for (let i = 0; i < me.game.world.children.length; i++) {
       me.game.world.removeChild(me.game.world.children[i]);
     }
-    console.log('after', me.game.world.children)
   }
 });
